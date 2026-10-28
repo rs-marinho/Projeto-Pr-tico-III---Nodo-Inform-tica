@@ -1,0 +1,591 @@
+/* =====================================================================
+   Nodo Informática — folha de estilos principal
+   Carregada DEPOIS do Bootstrap: personaliza o framework pelas suas
+   variáveis CSS (--bs-*) em vez de sobrescrever regra por regra.
+   Conceito visual: painel de patch. Seções viram portas com LED,
+   conteúdo em faixas modulares com filetes técnicos.
+   ===================================================================== */
+
+/* ---------- 1. Tokens de design (tema claro) ---------- */
+:root {
+  --bg: #eef2f5;
+  --surface: #ffffff;
+  --soft: #e1eaf1;
+  --ink: #101c26;
+  --muted: #4d6076;
+  --line: #d0dae3;
+  --accent: #0a62a8;
+  --accent-strong: #084f88;
+  --accent-ink: #ffffff;
+  --led: #e87a00;
+  --ok: #17784a;
+  --erro: #b3261e;
+
+  --f-display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --raio: 6px;
+
+  /* Ponte com o Bootstrap: os componentes passam a usar a paleta da marca */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--ink);
+  --bs-body-font-family: var(--f-body);
+  --bs-body-font-size: 1rem;
+  --bs-body-line-height: 1.6;
+  --bs-heading-color: var(--ink);
+  --bs-emphasis-color: var(--ink);
+  --bs-secondary-color: var(--muted);
+  --bs-secondary-bg: var(--soft);
+  --bs-tertiary-bg: var(--soft);
+  --bs-border-color: var(--line);
+  --bs-border-radius: var(--raio);
+  --bs-form-invalid-color: var(--erro);
+  --bs-form-invalid-border-color: var(--erro);
+}
+
+/* ---------- 2. Tema escuro (preferência do sistema operacional) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c141b;
+    --surface: #131e27;
+    --soft: #1a2833;
+    --ink: #e7eef4;
+    --muted: #9bb0c2;
+    --line: #2c3d49;
+    --accent: #58b4f0;
+    --accent-strong: #8ccbf5;
+    --accent-ink: #06121b;
+    --led: #ffa21f;
+    --ok: #4fd08f;
+    --erro: #ff8f78;
+    color-scheme: dark;
+  }
+  /* Seta do <select> clara para manter o contraste no fundo escuro */
+  .form-select {
+    --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e7eef4' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  }
+}
+
+/* ---------- 3. Base ---------- */
+body {
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  --bs-gutter-x: 2rem; /* margem lateral mínima de 16px no celular */
+  max-width: 1152px;
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3, h4 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(1.9rem, 5.2vw, 3.1rem); font-weight: 700; }
+h2 { font-size: clamp(1.4rem, 3.2vw, 1.9rem); }
+h3 { font-size: 1.15rem; }
+h4 { font-size: 1.05rem; }
+p, dl, dd, ul { margin: 0; }
+a { color: var(--accent); text-underline-offset: 0.15em; }
+a:hover { color: var(--accent-strong); }
+
+/* Foco sempre visível (WCAG 2.4.7). O Bootstrap troca o outline por sombra; aqui ele volta. */
+:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+.btn:focus-visible { box-shadow: none; }
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--accent) 25%, transparent);
+}
+/* Títulos que recebem foco por script (troca de seção) não precisam de contorno */
+[tabindex="-1"]:focus:not(:focus-visible) { outline: none; }
+
+.eyebrow {
+  font: 500 0.75rem/1.3 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lead { font-size: 1.12rem; font-weight: 400; max-width: 60ch; }
+.prosa { max-width: 65ch; color: var(--muted); }
+.pilha { display: grid; gap: 1rem; align-content: start; }
+.acoes { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* Link "Pular para o conteúdo" */
+.pular {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  z-index: 1080;
+  padding: 0.6rem 1rem;
+  border-radius: var(--raio);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+.pular:hover { color: var(--accent-ink); }
+
+/* ---------- 4. Botões do Bootstrap na paleta da marca ---------- */
+.btn {
+  --bs-btn-font-weight: 600;
+  --bs-btn-padding-x: 1.125rem;
+  --bs-btn-padding-y: 0.625rem;
+  --bs-btn-border-radius: var(--raio);
+}
+.btn-sm {
+  --bs-btn-padding-x: 0.8rem;
+  --bs-btn-padding-y: 0.45rem;
+  --bs-btn-font-size: 0.9rem;
+}
+.btn-primary {
+  --bs-btn-color: var(--accent-ink);
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-color: var(--accent-ink);
+  --bs-btn-hover-bg: var(--accent-strong);
+  --bs-btn-hover-border-color: var(--accent-strong);
+  --bs-btn-active-color: var(--accent-ink);
+  --bs-btn-active-bg: var(--accent-strong);
+  --bs-btn-active-border-color: var(--accent-strong);
+  --bs-btn-disabled-color: var(--accent-ink);
+  --bs-btn-disabled-bg: var(--accent);
+  --bs-btn-disabled-border-color: var(--accent);
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-color: var(--accent-ink);
+  --bs-btn-hover-bg: var(--accent);
+  --bs-btn-hover-border-color: var(--accent);
+  --bs-btn-active-color: var(--accent-ink);
+  --bs-btn-active-bg: var(--accent-strong);
+  --bs-btn-active-border-color: var(--accent-strong);
+  --bs-btn-disabled-color: var(--accent);
+  --bs-btn-disabled-border-color: var(--accent);
+}
+
+/* ---------- 5. Topo e navegação ---------- */
+.topo { background: var(--surface); border-bottom: 1px solid var(--line); }
+.topo__linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1rem 0.75rem;
+}
+.marca { display: flex; align-items: center; gap: 0.75rem; color: var(--ink); text-decoration: none; }
+.marca:hover { color: var(--ink); }
+.marca__logo { width: 44px; height: 44px; flex: none; }
+.marca b { display: block; font: 700 1.3rem/1 var(--f-display); letter-spacing: 0.01em; }
+.marca small {
+  display: block;
+  margin-top: 4px;
+  font: 500 0.68rem/1.4 var(--f-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.carrinho {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 44px;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  background: var(--bg);
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+.carrinho:hover { border-color: var(--accent); color: var(--ink); }
+.contador {
+  min-width: 1.5rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: 500 0.8rem/1 var(--f-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.secoes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0 0 0.875rem;
+  list-style: none;
+}
+.secoes a {
+  position: relative;
+  display: block;
+  height: 100%;
+  padding: 1.25rem 0.75rem 0.625rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--muted);
+  font: 600 0.95rem/1.2 var(--f-display);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+.secoes a::before { /* LED da porta */
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+}
+.secoes a:hover { border-color: var(--accent); color: var(--ink); }
+.secoes a[aria-current="page"] {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--ink);
+  box-shadow: inset 0 -3px 0 var(--accent);
+}
+.secoes a[aria-current="page"]::before {
+  background: var(--led);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--led) 28%, transparent);
+}
+
+/* ---------- 6. Conteúdo, painéis e faixas ---------- */
+.conteudo { padding-block: 2rem 3.5rem; }
+.conteudo:focus { outline: none; }
+/* Sem JS, todas as seções aparecem em sequência; com JS só uma fica visível e não há margem. */
+.painel:not([hidden]) ~ .painel:not([hidden]) { margin-top: 3rem; }
+.cabecalho-secao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+}
+.cabecalho-secao p { color: var(--muted); font-size: 0.95rem; }
+
+.faixa {
+  margin-inline: 0;
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--line);
+}
+.faixa > * { padding-inline: 0; }
+@media (min-width: 768px) {
+  .faixa > .eyebrow { padding-top: 0.4rem; padding-right: 2rem; }
+}
+
+/* Hero */
+.hero { display: grid; gap: 1.5rem; padding-bottom: 2rem; }
+.hero h1 { max-width: 18ch; }
+.hero .lead { color: var(--muted); }
+.portas {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #2a3b48;
+  border-radius: var(--raio);
+  background: #16222c;
+}
+.portas__linha { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; }
+.porta {
+  position: relative;
+  aspect-ratio: 1.25;
+  border: 1px solid #33485a;
+  border-radius: 2px;
+  background: #0a1118;
+}
+.porta::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #2a3b48;
+}
+.porta--on::after { background: #ffa21f; box-shadow: 0 0 6px #ffa21f; }
+.porta--ok::after { background: #4fd08f; box-shadow: 0 0 6px #4fd08f; }
+.portas__legenda {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: #8aa0b2;
+  font: 500 0.68rem/1 var(--f-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.celula {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  height: 100%;
+  padding: 1.125rem;
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  background: var(--surface);
+}
+.celula h3 { font-size: 1.05rem; }
+.celula p { color: var(--muted); font-size: 0.95rem; }
+
+.regras > div {
+  display: grid;
+  grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+  gap: 0.25rem 1.5rem;
+  padding-block: 0.875rem;
+  border-top: 1px solid var(--line);
+}
+.regras > div:first-child { padding-top: 0; border-top: 0; }
+.regras dt { font: 600 1rem/1.3 var(--f-display); }
+.regras dd { color: var(--muted); }
+
+.horarios { display: grid; grid-template-columns: auto 1fr; gap: 0.375rem 1.25rem; }
+.horarios dt { color: var(--muted); font-weight: 400; }
+.horarios dd { font-variant-numeric: tabular-nums; }
+
+/* ---------- 7. Catálogo ---------- */
+.ferramentas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.busca { flex: 1 1 15rem; min-width: 0; }
+.busca .form-control { min-height: 44px; background: var(--surface); }
+.filtros { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.filtro {
+  min-height: 40px;
+  padding: 0.4rem 0.875rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.filtro:hover { border-color: var(--accent); }
+.filtro[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+.contagem { flex-basis: 100%; color: var(--muted); font-size: 0.9rem; }
+
+.linha { margin-bottom: 2.25rem; }
+.linha__grade { margin-bottom: 0; }
+
+.card {
+  --bs-card-bg: var(--surface);
+  --bs-card-color: var(--ink);
+  --bs-card-border-color: var(--line);
+  --bs-card-border-radius: var(--raio);
+  --bs-card-inner-border-radius: calc(var(--raio) - 1px);
+  --bs-card-cap-bg: transparent;
+  --bs-card-spacer-x: 0.875rem;
+  --bs-card-spacer-y: 0.875rem;
+}
+.produto__icone {
+  display: grid;
+  place-items: center;
+  padding: 1.125rem 0.75rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0;
+  background: var(--soft);
+  color: var(--accent);
+}
+.produto__icone svg { width: 100%; max-width: 120px; height: auto; }
+.produto .card-body { display: grid; gap: 0.375rem; align-content: start; padding-bottom: 0.375rem; }
+.produto__nome { font-size: 1.02rem; }
+.produto__desc { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+.produto .card-footer { display: grid; gap: 0.625rem; border-top: 0; padding-bottom: 0.875rem; }
+.sku { color: var(--muted); font: 400 0.72rem/1.2 var(--f-mono); letter-spacing: 0.08em; }
+.preco { font: 600 1.2rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.preco__parcela { display: block; margin-top: 4px; color: var(--muted); font: 400 0.78rem/1.2 var(--f-body); }
+.vazio {
+  padding: 2rem;
+  border: 1px dashed var(--line);
+  border-radius: var(--raio);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- 8. Pedido ---------- */
+.pedido {
+  display: grid;
+  gap: 0.875rem;
+  margin-top: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  background: var(--surface);
+  scroll-margin-top: 1rem;
+}
+.pedido__lista { padding: 0; list-style: none; }
+.item-pedido {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding-block: 0.625rem;
+  border-top: 1px solid var(--line);
+}
+.item-pedido:first-child { border-top: 0; }
+.item-pedido__nome { min-width: 0; overflow-wrap: anywhere; }
+.item-pedido__nome .sku { display: block; margin-top: 2px; }
+.qtd { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--raio); }
+.qtd__btn { /* alvo de toque de 40px: confortável para tremores e baixa precisão motora */
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: var(--raio);
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+.qtd__btn:hover { background: var(--soft); }
+.qtd__valor { min-width: 2rem; text-align: center; font-variant-numeric: tabular-nums; }
+.item-pedido__subtotal { min-width: 100px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+.pedido__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--ink);
+  font: 600 1.2rem/1 var(--f-display);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 9. Contato ---------- */
+.formulario {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  background: var(--surface);
+}
+.formulario__aviso, .form-text { color: var(--muted); font-size: 0.875rem; }
+.form-label { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.375rem; }
+.obrigatorio { color: var(--erro); }
+.form-control, .form-select { min-height: 44px; }
+textarea.form-control { min-height: 9rem; resize: vertical; }
+.invalid-feedback { font-size: 0.875rem; }
+
+.resultado {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--ok);
+  border-radius: var(--raio);
+  background: var(--surface);
+}
+.resultado pre {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 0.88rem/1.5 var(--f-mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.resultado__nota { color: var(--muted); font-size: 0.92rem; }
+
+.canais { padding: 0; list-style: none; }
+.canal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  padding-block: 0.875rem;
+  border-top: 1px solid var(--line);
+}
+.canal:first-child { padding-top: 0; border-top: 0; }
+.canal__rotulo {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font: 500 0.72rem/1 var(--f-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.canal__valor { font: 500 1rem/1.3 var(--f-mono); overflow-wrap: anywhere; }
+.canal__acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+/* ---------- 10. Perguntas frequentes (<details> nativo) ---------- */
+.faq { max-width: 780px; }
+.faq details { padding-block: 0.25rem; border-top: 1px solid var(--line); }
+.faq details:last-child { border-bottom: 1px solid var(--line); }
+.faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 0;
+  font: 600 1.05rem/1.35 var(--f-display);
+  list-style: none;
+  cursor: pointer;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; color: var(--accent); font: 400 1.4rem/1 var(--f-mono); }
+.faq details[open] summary::after { content: "–"; }
+.faq__resposta { max-width: 65ch; padding-bottom: 1rem; color: var(--muted); }
+
+/* ---------- 11. Rodapé e avisos ---------- */
+.rodape { border-top: 1px solid var(--line); background: var(--surface); }
+.rodape__linha {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.5rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.rodape__nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0; list-style: none; }
+
+.avisos { padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px)) !important; }
+.toast {
+  --bs-toast-bg: var(--surface);
+  --bs-toast-color: var(--ink);
+  --bs-toast-border-color: var(--accent);
+  --bs-toast-font-size: 0.95rem;
+  border-left-width: 4px;
+}
+
+/* ---------- 12. Responsividade ---------- */
+@media (max-width: 767.98px) {
+  .secoes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .regras > div { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 479.98px) {
+  .item-pedido { grid-template-columns: minmax(0, 1fr) auto; }
+  .item-pedido__subtotal { grid-column: 1 / -1; text-align: left; }
+  .portas__linha { gap: 4px; }
+}
+
+/* ---------- 13. Movimento: só anima quem não pediu movimento reduzido ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .secoes a, .filtro, .carrinho, .qtd__btn { transition: border-color 0.15s, background-color 0.15s, color 0.15s; }
+  .toast.show { animation: aviso-entra 0.2s ease-out; }
+  @keyframes aviso-entra { from { opacity: 0; transform: translateY(8px); } }
+}
+
+/* ---------- 14. Impressão (ex.: imprimir o pedido para aprovação interna) ---------- */
+@media print {
+  .topo nav, .ferramentas, .acoes, .avisos, .pular, .rodape nav { display: none !important; }
+  body, .topo, .rodape, .pedido, .card { background: #fff !important; color: #000 !important; }
+}

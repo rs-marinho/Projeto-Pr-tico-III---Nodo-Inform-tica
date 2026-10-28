@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nodo Informática</title>
+  <meta name="description" content="Nodo Informática: computadores, redes e proteção de dados para pequenas e médias empresas.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0a62a8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c141b" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <!-- Conexões antecipadas com as CDNs (reduz a latência do primeiro carregamento) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Bootstrap 5.3 (somente CSS: grid, utilitários, formulários e botões) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <!-- Estilos próprios: carregados depois do Bootstrap para personalizá-lo -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- defer: baixa em paralelo e executa na ordem, só depois de o HTML ser lido -->
+  <script src="assets/js/dados.js" defer></script>
+  <script src="assets/js/icones.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <a class="pular visually-hidden-focusable" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topo">
+    <div class="container">
+      <div class="topo__linha">
+        <a class="marca" href="#empresa">
+          <svg class="marca__logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <rect x="2" y="2" width="44" height="44" rx="8" fill="var(--accent)"/>
+            <path d="M14 35V13l20 22V13" fill="none" stroke="var(--accent-ink)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="13" r="4.2" fill="var(--accent-ink)"/>
+            <circle cx="34" cy="35" r="4.2" fill="var(--accent-ink)"/>
+            <circle cx="34" cy="13" r="3" fill="var(--led)"/>
+          </svg>
+          <span><b>Nodo</b><small>Informática e redes</small></span>
+        </a>
+        <a class="carrinho" id="link-pedido" href="#pedido">
+          Meu pedido <span class="badge rounded-pill contador" id="contador-pedido">0</span>
+        </a>
+      </div>
+
+      <nav aria-label="Seções do site">
+        <ul class="secoes">
+          <li><a href="#empresa" data-secao aria-current="page">A empresa</a></li>
+          <li><a href="#produtos" data-secao>Produtos</a></li>
+          <li><a href="#contato" data-secao>Contato</a></li>
+          <li><a href="#faq" data-secao>Perguntas frequentes</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container conteudo" id="conteudo" tabindex="-1">
+
+    <!-- ===================== A EMPRESA ===================== -->
+    <section class="painel" id="empresa" data-painel data-titulo="A empresa" aria-labelledby="empresa-titulo">
+      <div class="hero">
+        <p class="eyebrow">Loja de informática e infraestrutura de rede</p>
+        <h1 id="empresa-titulo" tabindex="-1" data-foco>Equipamento certo para a sua empresa funcionar amanhã cedo.</h1>
+        <p class="lead">A Nodo vende computadores, redes e proteção de dados para pequenas e médias empresas. Indicamos o que o seu negócio usa de verdade e deixamos o resto de fora.</p>
+        <div class="acoes">
+          <a class="btn btn-primary" href="#produtos">Ver produtos</a>
+          <a class="btn btn-outline-primary" href="#contato">Pedir orçamento</a>
+        </div>
+        <div class="portas" aria-hidden="true">
+          <div class="portas__linha"></div>
+          <div class="portas__linha"></div>
+          <div class="portas__legenda"><span>Switch gerenciável 24 portas</span><span>Gigabit · VLAN</span></div>
+        </div>
+      </div>
+
+      <section class="faixa row g-3" aria-labelledby="quem-somos">
+        <h2 class="eyebrow col-md-3" id="quem-somos">Quem somos</h2>
+        <div class="col-md-9 pilha">
+          <p class="lead">A Nodo é uma loja de informática voltada ao comércio e aos escritórios. Vendemos pela internet e também montamos a rede interna do cliente, do cabo ao backup.</p>
+          <p class="prosa">Trabalhamos com linhas para empresas (SMB), que trazem controle de banda, segmentação por VLAN e garantia de balcão. Equipamento doméstico fica fora do catálogo de redes.</p>
+        </div>
+      </section>
+
+      <section class="faixa row g-3" aria-labelledby="o-que-vendemos">
+        <h2 class="eyebrow col-md-3" id="o-que-vendemos">O que vendemos</h2>
+        <div class="col-md-9">
+          <ul class="row row-cols-1 row-cols-md-3 g-3 list-unstyled m-0">
+            <li class="col"><div class="celula"><h3>Computadores e notebooks</h3><p>Máquinas de trabalho para balcão, escritório e home office, com monitor e mini PC.</p></div></li>
+            <li class="col"><div class="celula"><h3>Redes e conectividade</h3><p>Switches, Wi-Fi corporativo, roteadores e cabeamento CAT6.</p></div></li>
+            <li class="col"><div class="celula"><h3>Armazenamento e proteção</h3><p>NAS, nobreak senoidal, SSD e discos externos para backup.</p></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="faixa row g-3" aria-labelledby="como-trabalhamos">
+        <h2 class="eyebrow col-md-3" id="como-trabalhamos">Como trabalhamos</h2>
+        <div class="col-md-9">
+          <dl class="regras">
+            <div><dt>Rede com folga de 30% a 50%</dt><dd>Eletrocalhas com espaço livre e switches com portas sobrando, para contratar gente sem trocar equipamento.</dd></div>
+            <div><dt>Tudo documentado</dt><dd>Entregamos o mapa de cabeamento, a tabela de IPs e as senhas de administração ao dono da empresa.</dd></div>
+            <div><dt>Servidor do tamanho da necessidade</dt><dd>Servidor de entrada para domínio e aplicações, ou NAS quando o uso é guardar e compartilhar arquivos.</dd></div>
+            <div><dt>Backup 3-2-1</dt><dd>Três cópias dos dados, duas mídias locais diferentes e uma cópia criptografada na nuvem.</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="faixa row g-3" aria-labelledby="atendimento">
+        <h2 class="eyebrow col-md-3" id="atendimento">Atendimento</h2>
+        <div class="col-md-9">
+          <dl class="horarios">
+            <dt>Segunda a sexta</dt><dd><time datetime="08:00">8h</time> às <time datetime="18:00">18h</time></dd>
+            <dt>Sábado</dt><dd><time datetime="08:00">8h</time> às <time datetime="12:00">12h</time></dd>
+            <dt>Pedidos pelo site</dt><dd>Recebidos todos os dias</dd>
+          </dl>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===================== PRODUTOS ===================== -->
+    <section class="painel" id="produtos" data-painel data-titulo="Produtos" aria-labelledby="produtos-titulo">
+      <div class="cabecalho-secao">
+        <h2 id="produtos-titulo" tabindex="-1" data-foco>Produtos</h2>
+        <p>Filtre por linha ou busque pelo nome, código ou descrição.</p>
+      </div>
+
+      <!-- Ferramentas só aparecem com JavaScript ativo (progressive enhancement) -->
+      <div class="ferramentas" id="ferramentas" hidden>
+        <form class="busca" id="form-busca" role="search">
+          <label class="visually-hidden" for="busca">Buscar produto</label>
+          <input class="form-control" id="busca" type="search" placeholder="Buscar: switch, SSD, notebook…" autocomplete="off" enterkeyhint="search">
+        </form>
+        <div class="filtros" id="filtros" role="group" aria-label="Filtrar por linha de produto"></div>
+        <p class="contagem" id="contagem" role="status" aria-live="polite"></p>
+      </div>
+
+      <div id="catalogo"></div>
+      <p class="vazio" id="catalogo-vazio" hidden>Nenhum produto encontrado. Tente outra palavra ou escolha “Todas as linhas”.</p>
+      <noscript><p class="vazio">O catálogo precisa de JavaScript ativado. Se preferir, fale com a loja pela seção Contato.</p></noscript>
+
+      <section class="pedido" id="pedido" aria-labelledby="pedido-titulo">
+        <div class="cabecalho-secao m-0">
+          <h2 id="pedido-titulo" tabindex="-1" data-foco>Meu pedido</h2>
+          <p id="pedido-dica">Adicione produtos para montar a solicitação.</p>
+        </div>
+        <ul class="pedido__lista" id="pedido-lista" hidden></ul>
+        <p class="pedido__total" id="pedido-total" hidden><span>Total</span><span id="pedido-total-valor"></span></p>
+        <div class="acoes">
+          <button class="btn btn-primary" type="button" id="btn-solicitar" disabled>Solicitar pedido</button>
+          <button class="btn btn-outline-primary" type="button" id="btn-limpar" disabled>Limpar pedido</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===================== CONTATO ===================== -->
+    <section class="painel" id="contato" data-painel data-titulo="Contato" aria-labelledby="contato-titulo">
+      <div class="cabecalho-secao">
+        <h2 id="contato-titulo" tabindex="-1" data-foco>Fale com a Nodo</h2>
+        <p>Dúvidas, orçamentos e pedidos.</p>
+      </div>
+
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-7">
+          <form class="formulario" id="form-contato" novalidate>
+            <p class="formulario__aviso">Campos marcados com <span aria-hidden="true">*</span><span class="visually-hidden">asterisco</span> são obrigatórios.</p>
+
+            <div>
+              <label class="form-label" for="f-nome">Nome <span class="obrigatorio" aria-hidden="true">*</span></label>
+              <input class="form-control" id="f-nome" name="nome" type="text" autocomplete="name" required aria-describedby="erro-nome">
+              <p class="invalid-feedback" id="erro-nome"></p>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-sm-7">
+                <label class="form-label" for="f-email">E-mail <span class="obrigatorio" aria-hidden="true">*</span></label>
+                <input class="form-control" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="erro-email">
+                <p class="invalid-feedback" id="erro-email"></p>
+              </div>
+              <div class="col-sm-5">
+                <label class="form-label" for="f-telefone">Telefone ou WhatsApp</label>
+                <input class="form-control" id="f-telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="dica-telefone erro-telefone">
+                <p class="form-text" id="dica-telefone">Opcional, com DDD.</p>
+                <p class="invalid-feedback" id="erro-telefone"></p>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="f-assunto">Assunto</label>
+              <select class="form-select" id="f-assunto" name="assunto">
+                <option>Orçamento</option>
+                <option>Pedido de compra</option>
+                <option>Projeto de rede</option>
+                <option>Suporte e garantia</option>
+                <option>Outro assunto</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="form-label" for="f-mensagem">Mensagem <span class="obrigatorio" aria-hidden="true">*</span></label>
+              <textarea class="form-control" id="f-mensagem" name="mensagem" rows="6" maxlength="2000" required aria-describedby="erro-mensagem"></textarea>
+              <p class="invalid-feedback" id="erro-mensagem"></p>
+            </div>
+
+            <div><button class="btn btn-primary" type="submit">Montar mensagem</button></div>
+          </form>
+
+          <section class="resultado" id="resultado" aria-labelledby="resultado-titulo" hidden>
+            <h3 id="resultado-titulo" tabindex="-1">Mensagem pronta</h3>
+            <pre id="resultado-texto"></pre>
+            <p class="resultado__nota">Este site não envia mensagens sozinho. Escolha como enviar:</p>
+            <div class="acoes">
+              <a class="btn btn-primary btn-sm" id="resultado-whatsapp" href="https://wa.me/5551990000000" target="_blank" rel="noopener">Enviar por WhatsApp<span class="visually-hidden"> (abre em nova aba)</span></a>
+              <a class="btn btn-outline-primary btn-sm" id="resultado-email" href="mailto:contato@nodoinformatica.com.br">Enviar por e-mail</a>
+              <button class="btn btn-outline-primary btn-sm" type="button" data-copiar="#resultado-texto">Copiar mensagem</button>
+            </div>
+          </section>
+        </div>
+
+        <div class="col-lg-5 pilha">
+          <ul class="canais">
+            <li class="canal">
+              <span class="canal__rotulo">WhatsApp</span>
+              <span class="canal__valor" id="c-wa">(51) 99000-0000</span>
+              <span class="canal__acoes">
+                <a class="btn btn-outline-primary btn-sm" href="https://wa.me/5551990000000" target="_blank" rel="noopener">Abrir<span class="visually-hidden"> WhatsApp (abre em nova aba)</span></a>
+                <button class="btn btn-outline-primary btn-sm" type="button" data-copiar="#c-wa">Copiar<span class="visually-hidden"> número do WhatsApp</span></button>
+              </span>
+            </li>
+            <li class="canal">
+              <span class="canal__rotulo">Telefone</span>
+              <span class="canal__valor" id="c-tel">(51) 3000-0000</span>
+              <span class="canal__acoes">
+                <a class="btn btn-outline-primary btn-sm" href="tel:+555130000000">Ligar<span class="visually-hidden"> para a loja</span></a>
+                <button class="btn btn-outline-primary btn-sm" type="button" data-copiar="#c-tel">Copiar<span class="visually-hidden"> telefone</span></button>
+              </span>
+            </li>
+            <li class="canal">
+              <span class="canal__rotulo">E-mail</span>
+              <span class="canal__valor" id="c-mail">contato@nodoinformatica.com.br</span>
+              <span class="canal__acoes">
+                <a class="btn btn-outline-primary btn-sm" href="mailto:contato@nodoinformatica.com.br">Escrever<span class="visually-hidden"> e-mail</span></a>
+                <button class="btn btn-outline-primary btn-sm" type="button" data-copiar="#c-mail">Copiar<span class="visually-hidden"> e-mail</span></button>
+              </span>
+            </li>
+          </ul>
+          <p class="prosa">Respondemos em até um dia útil. Para projeto de rede, informe quantos computadores, impressoras e pontos de Wi-Fi a empresa tem hoje.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="painel" id="faq" data-painel data-titulo="Perguntas frequentes" aria-labelledby="faq-titulo">
+      <div class="cabecalho-secao">
+        <h2 id="faq-titulo" tabindex="-1" data-foco>Perguntas frequentes</h2>
+      </div>
+      <!-- <details> nativo: acessível por teclado e leitor de tela sem JavaScript nem ARIA extra -->
+      <div class="faq">
+        <details open><summary>Como faço um pedido?</summary><p class="faq__resposta">Na seção Produtos, adicione os itens ao pedido e clique em Solicitar pedido. A mensagem já sai com a lista e o total. Depois é só enviá-la pelo WhatsApp ou pelo e-mail da loja.</p></details>
+        <details><summary>Quais são as formas de pagamento?</summary><p class="faq__resposta">Pix, boleto, cartão de crédito em até 10 vezes e faturamento para empresas com cadastro aprovado.</p></details>
+        <details><summary>Qual é o prazo de entrega?</summary><p class="faq__resposta">Itens em estoque saem em até 2 dias úteis. Equipamentos de rede sob encomenda levam de 5 a 10 dias úteis, e avisamos o prazo no orçamento.</p></details>
+        <details><summary>Os produtos têm garantia e nota fiscal?</summary><p class="faq__resposta">Sim. Todos os produtos têm nota fiscal e garantia do fabricante. Equipamentos de linha empresarial costumam ter garantia estendida, informada na página de cada item.</p></details>
+        <details><summary>Vocês instalam a rede da minha empresa?</summary><p class="faq__resposta">Fazemos o projeto, o cabeamento e a configuração. A entrega inclui o mapa de cabeamento, a tabela de endereços IP e as senhas dos equipamentos.</p></details>
+        <details><summary>Qual servidor eu devo comprar?</summary><p class="faq__resposta">Depende do uso. Para guardar arquivos e fazer backup, um NAS atende bem e gasta menos energia. Para controle de domínio ou sistemas de gestão, indicamos um servidor em torre de entrada.</p></details>
+        <details><summary>Posso trocar um produto?</summary><p class="faq__resposta">Compras feitas pelo site podem ser devolvidas em até 7 dias corridos após o recebimento, com o produto lacrado e sem uso.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container rodape__linha">
+      <p>© 2026 Nodo Informática. Site desenvolvido como Projeto Prático III. Produtos, preços e contatos são exemplos.</p>
+      <nav aria-label="Rodapé">
+        <ul class="rodape__nav">
+          <li><a href="#empresa" data-secao>A empresa</a></li>
+          <li><a href="#produtos" data-secao>Produtos</a></li>
+          <li><a href="#contato" data-secao>Contato</a></li>
+          <li><a href="#faq" data-secao>Perguntas frequentes</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Anúncios para leitores de tela (sempre presente no DOM, por isso é confiável) -->
+  <p class="visually-hidden" id="anuncio" role="status" aria-live="polite" aria-atomic="true"></p>
+  <!-- Aviso visual equivalente (o anúncio sonoro já é feito pela região acima) -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3 avisos" aria-hidden="true">
+    <div class="toast" id="toast"><div class="toast-body" id="toast-texto"></div></div>
+  </div>
+
+  <!-- Templates: a marcação dos itens dinâmicos fica no HTML; o JS só clona e preenche com textContent -->
+  <template id="tpl-linha">
+    <section class="linha">
+      <div class="cabecalho-secao">
+        <h3 class="linha__titulo"></h3>
+        <p class="linha__nota"></p>
+      </div>
+      <ul class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 list-unstyled linha__grade"></ul>
+    </section>
+  </template>
+
+  <template id="tpl-produto">
+    <li class="col">
+      <article class="card produto h-100">
+        <div class="produto__icone" aria-hidden="true"></div>
+        <div class="card-body">
+          <p class="sku"></p>
+          <h4 class="produto__nome"></h4>
+          <p class="produto__desc"></p>
+        </div>
+        <div class="card-footer">
+          <p class="preco"><span class="preco__valor"></span><small class="preco__parcela"></small></p>
+          <button class="btn btn-primary btn-sm w-100" type="button" data-adicionar>Adicionar ao pedido<span class="visually-hidden produto__nome-oculto"></span></button>
+        </div>
+      </article>
+    </li>
+  </template>
+
+  <template id="tpl-item-pedido">
+    <li class="item-pedido">
+      <div class="item-pedido__nome"><strong></strong><span class="sku"></span></div>
+      <div class="qtd" role="group">
+        <button class="qtd__btn" type="button" data-diminuir><span aria-hidden="true">−</span></button>
+        <span class="qtd__valor"></span>
+        <button class="qtd__btn" type="button" data-aumentar><span aria-hidden="true">+</span></button>
+      </div>
+      <p class="item-pedido__subtotal"></p>
+    </li>
+  </template>
+</body>
+</html>
